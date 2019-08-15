@@ -1,5 +1,6 @@
-package com.vailter.standard.exception;
+package com.vailter.standard.config;
 
+import com.vailter.standard.exception.AppException;
 import com.vailter.standard.ret.CodeMsg;
 import com.vailter.standard.ret.Result;
 import lombok.extern.slf4j.Slf4j;

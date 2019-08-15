@@ -6,6 +6,7 @@
     <modules>
         <module>standard-main</module>
         <module>standard-common</module>
+        <module>standard-core</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -62,6 +63,11 @@
             <dependency>
                 <groupId>com.vailter.standard</groupId>
                 <artifactId>standard-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vailter.standard</groupId>
+                <artifactId>standard-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
