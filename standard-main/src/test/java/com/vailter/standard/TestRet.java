@@ -1,3 +1,5 @@
+package com.vailter.standard;
+
 import com.vailter.standard.ret.Result;
 import org.junit.Test;
 

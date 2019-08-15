@@ -7,6 +7,7 @@
         <module>standard-main</module>
         <module>standard-common</module>
         <module>standard-core</module>
+        <module>design-pattern-learn</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
