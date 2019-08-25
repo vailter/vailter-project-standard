@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
+ * 静态资源的解释：
+ * <p>
  * static-path-pattern：访问模式，默认为/**，多个可以逗号分隔
  * <p>
  * static-locations：资源目录，多个目录逗号分隔，
@@ -21,7 +23,9 @@ import java.io.IOException;
  * classpath:/public/
  * classpath:/resources/
  * classpath:/static/
- * classpath:/META-INFO/resouces/
+ * classpath:/META-INFO/resources/
+ *
+ * @author Vailter67
  */
 @RestController
 public class StaticResourceController {
