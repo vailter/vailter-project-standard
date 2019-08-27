@@ -8,6 +8,7 @@
         <module>standard-common</module>
         <module>standard-core</module>
         <module>design-pattern-learn</module>
+        <module>ddd-practice</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -76,6 +77,16 @@
                 <artifactId>standard-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.vailter.standard</groupId>
+                <artifactId>standard-main</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vailter.standard</groupId>
+                <artifactId>ddd-practice</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -86,12 +97,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
     </build>
 
 
