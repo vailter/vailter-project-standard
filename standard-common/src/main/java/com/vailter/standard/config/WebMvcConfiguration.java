@@ -27,6 +27,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         log.info("add interceptors");
+        // 配置拦截器 LoginRequiredInterceptor
         registry.addInterceptor(new LoginRequiredInterceptor()).excludePathPatterns(Arrays.asList("/META-INF/resources/**", "/static/**"));
     }
 

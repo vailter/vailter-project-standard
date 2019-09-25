@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ddd-practice</artifactId>
+    <artifactId>tdd-practice</artifactId>
 
     <dependencies>
         <dependency>
