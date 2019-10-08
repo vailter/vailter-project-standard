@@ -1,7 +1,7 @@
 package com.vailter.standard;
 
 import com.vailter.standard.ret.Result;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TestRet {
     @Test
