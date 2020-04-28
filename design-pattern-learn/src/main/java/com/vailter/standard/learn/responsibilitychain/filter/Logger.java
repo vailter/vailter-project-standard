@@ -1,4 +1,4 @@
-package com.vailter.standard.learn.responsibilitychain;
+package com.vailter.standard.learn.responsibilitychain.filter;
 
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -6,7 +6,17 @@ import java.util.function.Consumer;
 
 /**
  * @author vailter67
+ * <p>
+ * 1.设计一个链条，和抽象处理方法
+ * 2.将具体处理器初始化到链条中，并做抽象方法具体的实现
+ * 3.具体处理器之间的引用和处理条件判断
+ * 4.设计链条结束标识
+ * 1，2 都可以很模块化设计，3，4 设计可以多种多样，比如文中通过 pos 游标，或嵌套动态代理等.
+ *
  * <a href="https://mp.weixin.qq.com/s?__biz=Mzg3NjIxMjA1Ng==&mid=2247483730&idx=1&sn=c3a2ae435205953688dcd5ee13bb932e&scene=21#wechat_redirect"></a>
+ * <p>
+ * 管道和过滤器链
+ * <a href="https://blog.csdn.net/abinge317/article/details/52882913"></a>
  */
 @FunctionalInterface
 public interface Logger {
@@ -24,6 +34,7 @@ public interface Logger {
 
     /**
      * 函数式接口中的唯一抽象方法
+     *
      * @param msg
      * @param severity
      */
@@ -69,8 +80,7 @@ public interface Logger {
 
         Logger logger = consoleLogger(LogLevel.all())
                 .appendNext(emailLogger(LogLevel.FUNCTIONAL_MESSAGE, LogLevel.FUNCTIONAL_ERROR))
-                .appendNext(fileLogger(LogLevel.WARNING, LogLevel.ERROR))
-                ;
+                .appendNext(fileLogger(LogLevel.WARNING, LogLevel.ERROR));
 
         // consoleLogger 可以记录所有 level 的信息
         logger.message("进入到订单流程，接收到参数，参数内容为XXXX", LogLevel.DEBUG);

@@ -26,6 +26,11 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>standard-dynamic-datasource</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>design-pattern-learn</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
