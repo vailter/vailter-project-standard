@@ -36,6 +36,9 @@ public class UnifiedReturnConfig {
             if (body instanceof CommonResult || body instanceof Result) {
                 return body;
             }
+//            if (mediaType.includes(MediaType.TEXT_HTML) || mediaType.includes(MediaType.TEXT_PLAIN)) {
+//                return body;
+//            }
             return new CommonResult<>(body);
         }
     }

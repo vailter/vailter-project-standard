@@ -11,5 +11,10 @@
 
     <artifactId>design-pattern-learn</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.vailter.standard</groupId>
+            <artifactId>standard-common</artifactId>
+        </dependency>
+    </dependencies>
 </project>
