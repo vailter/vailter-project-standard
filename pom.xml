@@ -10,6 +10,7 @@
         <module>design-pattern-learn</module>
         <module>tdd-practice</module>
         <module>standard-dynamic-datasource</module>
+        <module>java8-learn</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
