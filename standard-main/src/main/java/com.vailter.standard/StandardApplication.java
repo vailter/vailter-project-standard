@@ -27,6 +27,7 @@ public class StandardApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        // 责任链应用实例
         applicationService.mockedClient();
     }
 }
