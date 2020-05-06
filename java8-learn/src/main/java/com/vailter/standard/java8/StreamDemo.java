@@ -1,10 +1,13 @@
 package com.vailter.standard.java8;
 
+import com.vailter.standard.java8.domain.SClass;
 import com.vailter.standard.java8.domain.Student;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +21,8 @@ public class StreamDemo {
 //        testMap();
 //        testFlatMap();
 //         testCount();
-        testReduce();
+//        testReduce();
+        testAdvancedCollect();
     }
 
     private static void testCollect() {
@@ -117,5 +121,33 @@ public class StreamDemo {
 //        Integer reduce = Stream.of(1, 2, 3, 4).reduce(0, (a, b) -> a + b);
         Integer reduce = Stream.of(1, 2, 3, 4).reduce(0, Integer::sum);
         System.out.println(reduce);
+    }
+
+    private static void testAdvancedCollect() {
+        List<Student> students1 = new ArrayList<>(3);
+        students1.add(new Student("卡卡罗特", 22, 175, null));
+        students1.add(new Student("孙悟空", 40, 180, null));
+        students1.add(new Student("孙行者", 50, 185, null));
+
+        SClass sClass1 = new SClass("一班", students1);
+        //复制students1，并移除一个学生
+        List<Student> students2 = new ArrayList<>(students1);
+        students2.remove(1);
+        SClass sClass2 = new SClass("二班", students2);
+        //将ostClass1、ostClass2转换为Stream
+        Stream<SClass> classStream = Stream.of(sClass1, sClass2);
+        //SClass biggestClass = classStream
+        //        .collect(
+        //                Collectors.maxBy(Comparator.comparing(sClass -> sClass.getStudents().size()))
+        //        )
+        //        .orElseGet(SClass::new);
+        SClass biggestClass = classStream
+                .max(Comparator.comparing(sClass -> sClass.getStudents().size()))
+                .orElseGet(SClass::new);
+        System.out.println("人数最多的班级是：" + biggestClass.getName());
+
+        Double avgAge = students1.stream().collect(Collectors.averagingInt(Student::getAge));
+
+        System.out.println("一班平均年龄是：" + avgAge);
     }
 }
