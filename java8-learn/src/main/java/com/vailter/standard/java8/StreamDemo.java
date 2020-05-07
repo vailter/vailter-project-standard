@@ -1,13 +1,14 @@
 package com.vailter.standard.java8;
 
 import com.vailter.standard.java8.domain.SClass;
+import com.vailter.standard.java8.domain.SpecialtyEnum;
 import com.vailter.standard.java8.domain.Student;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,7 +23,13 @@ public class StreamDemo {
 //        testFlatMap();
 //         testCount();
 //        testReduce();
-        testAdvancedCollect();
+//        testAdvancedCollect();
+        // 转换成块
+//        testPartition();
+        // 分组
+//        testGroup();
+        // 拼接字符串
+        testJoin();
     }
 
     private static void testCollect() {
@@ -150,4 +157,42 @@ public class StreamDemo {
 
         System.out.println("一班平均年龄是：" + avgAge);
     }
+
+    private static void testPartition() {
+        List<Student> students = new ArrayList<>(3);
+        students.add(new Student("卡卡罗特", 22, 175, Collections.singletonList(SpecialtyEnum.BASKETBALL)));
+        students.add(new Student("孙悟空", 40, 180, Collections.singletonList(SpecialtyEnum.DANCE)));
+        students.add(new Student("孙行者", 50, 185, Collections.singletonList(SpecialtyEnum.SING)));
+        Map<Boolean, List<Student>> listMap =
+                students.stream()
+                        .collect(
+                                Collectors.partitioningBy(student -> student.getSpecialties().contains(SpecialtyEnum.SING))
+                        );
+        System.out.println(listMap);
+    }
+
+    private static void testGroup() {
+        List<Student> students = new ArrayList<>(3);
+        students.add(new Student("卡卡罗特", 22, 175, Collections.singletonList(SpecialtyEnum.BASKETBALL)));
+        students.add(new Student("孙悟空", 40, 180, Collections.singletonList(SpecialtyEnum.DANCE)));
+        students.add(new Student("孙行者", 50, 185, Collections.singletonList(SpecialtyEnum.SING)));
+        Map<SpecialtyEnum, List<Student>> listMap =
+                students.stream()
+                        .collect(
+                                Collectors.groupingBy(student -> student.getSpecialties().get(0))
+                        );
+        System.out.println(listMap);
+    }
+
+    private static void testJoin() {
+        List<Student> students = new ArrayList<>(3);
+        students.add(new Student("卡卡罗特", 22, 175, Collections.singletonList(SpecialtyEnum.BASKETBALL)));
+        students.add(new Student("孙悟空", 40, 180, Collections.singletonList(SpecialtyEnum.DANCE)));
+        students.add(new Student("孙行者", 50, 185, Collections.singletonList(SpecialtyEnum.SING)));
+        String names = students.stream()
+                // 第一个是分界符，第二个是前缀符，第三个是结束符。
+                .map(Student::getName).collect(Collectors.joining(",","[","]"));
+        System.out.println(names);
+    }
+
 }
