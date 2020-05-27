@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @since 1.0.0
  */
-@ConfigurationProperties(prefix = "dynamic")
+//@ConfigurationProperties(prefix = "dynamic")
 public class DynamicDataSourceProperties {
     private Map<String, DruidDataSource> datasource = new LinkedHashMap<>();
 

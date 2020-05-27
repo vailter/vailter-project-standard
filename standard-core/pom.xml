@@ -16,5 +16,10 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>standard-common</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.vailter.standard</groupId>
+            <artifactId>standard-dynamic-datasource</artifactId>
+        </dependency>
     </dependencies>
 </project>

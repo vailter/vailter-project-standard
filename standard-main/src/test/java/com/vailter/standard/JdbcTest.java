@@ -1,6 +1,6 @@
 package com.vailter.standard;
 
-import com.vailter.standard.datasource.dynamic.annotation.DataSource;
+import com.vailter.standard.service.DynamicSourceService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -46,11 +46,14 @@ class JdbcTest {
         System.out.println(list);
     }
 
+    @Resource
+    private DynamicSourceService dynamicSourceService;
+
     @Test
-    @DataSource("fintech")
     void testDynamicDatasource() {
-        int count = jdbcTemplate.queryForObject("select count(1) from biocloo_workdata_sub_info", Integer.class);
-        System.out.println(count);
+        //int count = jdbcTemplate.queryForObject("select count(1) from biocloo_workdata_sub_info", Integer.class);
+        //System.out.println(count);
+        dynamicSourceService.testDynamicDatasource();
     }
 
     @Data

@@ -22,8 +22,8 @@ import java.util.Map;
  *
  * @since 1.0.0
  */
-@Configuration
-@EnableConfigurationProperties(DynamicDataSourceProperties.class)
+//@Configuration
+//@EnableConfigurationProperties(DynamicDataSourceProperties.class)
 public class DynamicDataSourceConfig {
     @Resource
     private DynamicDataSourceProperties properties;
