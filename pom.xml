@@ -30,6 +30,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
+        <tk.mybatis.version>2.1.5</tk.mybatis.version>
+        <com.github.pagehelper.version>1.2.10</com.github.pagehelper.version>
     </properties>
 
     <dependencyManagement>
@@ -135,6 +137,20 @@
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${org.mapstruct.version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!-- 通用Mapper -->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${tk.mybatis.version}</version>
+            </dependency>
+
+            <!-- MyBatis 分页 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${com.github.pagehelper.version}</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.baomidou/dynamic-datasource-spring-boot-starter -->

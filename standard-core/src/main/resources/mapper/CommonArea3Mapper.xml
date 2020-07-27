@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vailter.standard.mapper.CommonArea3Mapper">
+    <resultMap id="BaseResultMap" type="com.vailter.standard.domain.CommonArea3">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="parent_code" jdbcType="VARCHAR" property="parentCode"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="xz_code" jdbcType="VARCHAR" property="xzCode"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="county" jdbcType="VARCHAR" property="county"/>
+        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="zip_code" jdbcType="VARCHAR" property="zipCode"/>
+        <result column="short_name" jdbcType="VARCHAR" property="shortName"/>
+        <result column="full_pin" jdbcType="VARCHAR" property="fullPin"/>
+        <result column="short_pin" jdbcType="VARCHAR" property="shortPin"/>
+        <result column="first_pin" jdbcType="VARCHAR" property="firstPin"/>
+        <result column="english_name" jdbcType="VARCHAR" property="englishName"/>
+        <result column="lng" jdbcType="DOUBLE" property="lng"/>
+        <result column="lat" jdbcType="DOUBLE" property="lat"/>
+        <result column="province_short_name" jdbcType="VARCHAR" property="provinceShortName"/>
+        <result column="city_short_name" jdbcType="VARCHAR" property="cityShortName"/>
+        <result column="county_short_name" jdbcType="VARCHAR" property="countyShortName"/>
+        <result column="province_pin" jdbcType="VARCHAR" property="provincePin"/>
+        <result column="city_pin" jdbcType="VARCHAR" property="cityPin"/>
+        <result column="county_pin" jdbcType="VARCHAR" property="countyPin"/>
+        <result column="level" jdbcType="BIT" property="level"/>
+        <result column="code_path" jdbcType="VARCHAR" property="codePath"/>
+        <result column="merge_name" jdbcType="VARCHAR" property="mergeName"/>
+    </resultMap>
+
+    <select id="queryByNameAndLevel" resultType="java.util.Map">
+        select
+        `name`,
+        short_name,
+        province,
+        city,
+        province_short_name,
+        city_short_name,
+        merge_name
+        from common_area3
+        <where>
+            <if test="shortProvince != null and shortProvince != ''">
+                and province_short_name = #{shortProvince}
+            </if>
+            <if test="level != null">
+                and `level` = #{level}
+            </if>
+        </where>
+    </select>
+</mapper>

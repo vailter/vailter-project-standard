@@ -1,4 +1,4 @@
-package com.vailter.standard.domain;
+package com.vailter.standard.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

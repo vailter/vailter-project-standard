@@ -1,6 +1,6 @@
 package com.vailter.standard.controller;
 
-import com.vailter.standard.domain.UserVo;
+import com.vailter.standard.vo.UserVo;
 import com.vailter.standard.exception.AppException;
 import com.vailter.standard.ret.CodeMsg;
 import org.springframework.http.HttpStatus;
