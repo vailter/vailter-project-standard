@@ -7,6 +7,7 @@ import net.hasor.spring.boot.EnableHasorWeb;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import tk.mybatis.spring.annotation.MapperScan;
 
 import javax.annotation.Resource;
 
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
 @SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 @EnableHasor()
 @EnableHasorWeb()
+@MapperScan(basePackages = {"com.vailter.**.mapper"})
 public class StandardApplication implements CommandLineRunner {
 
     public static void main(String[] args) {

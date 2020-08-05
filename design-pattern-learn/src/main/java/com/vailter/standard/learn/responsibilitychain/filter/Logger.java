@@ -48,16 +48,6 @@ public interface Logger {
         };
     }
 
-    static Logger logger(LogLevel[] levels, Consumer<String> writeMessage) {
-        EnumSet<LogLevel> set = EnumSet.copyOf(Arrays.asList(levels));
-        return (msg, severity) -> {
-            // 判断当前logger是否能处理传递过来的日志级别
-            if (set.contains(severity)) {
-                writeMessage.accept(msg);
-            }
-        };
-    }
-
     static Logger consoleLogger(LogLevel... levels) {
         return logger(levels, msg -> System.err.println("写到终端: " + msg));
     }
@@ -68,6 +58,16 @@ public interface Logger {
 
     static Logger fileLogger(LogLevel... levels) {
         return logger(levels, msg -> System.err.println("写到日志文件中: " + msg));
+    }
+
+    static Logger logger(LogLevel[] levels, Consumer<String> writeMessage) {
+        EnumSet<LogLevel> set = EnumSet.copyOf(Arrays.asList(levels));
+        return (msg, severity) -> {
+            // 判断当前logger是否能处理传递过来的日志级别
+            if (set.contains(severity)) {
+                writeMessage.accept(msg);
+            }
+        };
     }
 
     public static void main(String[] args) {
@@ -83,15 +83,15 @@ public interface Logger {
                 .appendNext(fileLogger(LogLevel.WARNING, LogLevel.ERROR));
 
         // consoleLogger 可以记录所有 level 的信息
-        logger.message("进入到订单流程，接收到参数，参数内容为XXXX", LogLevel.DEBUG);
-        logger.message("订单记录生成.", LogLevel.INFO);
+        //logger.message("进入到订单流程，接收到参数，参数内容为XXXX", LogLevel.DEBUG);
+        //logger.message("订单记录生成.", LogLevel.INFO);
 
         // consoleLogger 处理完，fileLogger 要继续处理
         logger.message("订单详细地址缺失", LogLevel.WARNING);
         logger.message("订单省市区信息缺失", LogLevel.ERROR);
 
-        // consoleLogger 处理完，emailLogger 继续处理
-        logger.message("订单短信通知服务失败", LogLevel.FUNCTIONAL_ERROR);
-        logger.message("订单已派送.", LogLevel.FUNCTIONAL_MESSAGE);
+        //// consoleLogger 处理完，emailLogger 继续处理
+        //logger.message("订单短信通知服务失败", LogLevel.FUNCTIONAL_ERROR);
+        //logger.message("订单已派送.", LogLevel.FUNCTIONAL_MESSAGE);
     }
 }

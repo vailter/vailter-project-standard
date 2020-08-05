@@ -23,7 +23,9 @@ public class UnifiedReturnConfig {
     static class CommonResultResponseAdvice implements ResponseBodyAdvice<Object> {
         @Override
         public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-            return true;
+            // 如果接口返回的类型本身就是 Result 那就没有必要进行额外的操作，返回false
+            return !methodParameter.getGenericParameterType().equals(Result.class)
+                    || !methodParameter.getGenericParameterType().equals(CommonResult.class);
         }
 
         @Override

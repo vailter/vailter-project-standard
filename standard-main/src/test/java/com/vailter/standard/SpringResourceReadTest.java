@@ -1,6 +1,9 @@
 package com.vailter.standard;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.vailter.standard.utils.CustomResourceReader;
+import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,10 @@ import org.springframework.core.io.ResourceLoader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * 获取资源测试：
@@ -144,5 +150,55 @@ public class SpringResourceReadTest {
         Properties properties = new Properties();
         properties.load(in);
         return properties;
+    }
+
+    /**
+     * test.list[0]=aaa
+     * test.list[1]=bbb
+     * test.list[2]=ccc
+     * 这种会报错：Could not resolve placeholder 'test.list' in value "${test.list}"
+     * 解决：新建一个类，定义List，注入这个类
+     */
+    //@Value("${test.list}")
+    //private List<String> stringList;
+
+    /**
+     * test.list1=ds,22das2,333adsa
+     * 下面这几种都是正确的
+     */
+    //@Value("${test.list1}")
+    //@Value("#{'${test.list1}'}") // EL 表达式
+    @Value("#{'${test.list1}'.split(',')}") // EL 表达式
+    //private List<String> stringList;
+    private String[] strings;
+
+    @Value("#{'${test.list1:}'.empty ? null : '${test.list:}'.split(',')}")
+    private List<String> testList;
+    @Value("#{'${test.set:}'.empty ? null : '${test.set:}'.split(',')}")
+    private Set<Integer> testSet;
+
+    /**
+     * map：
+     * test:
+     * map1: '{"name": "zhangsan", "sex": "male"}'
+     * map2: '{"math": "90", "english": "85"}'
+     */
+    //@Value("#{${test.map1}}")
+    //private Map<String, String> map1;
+    //
+    //@Value("#{${test.map2}}")
+    //private Map<String, Integer> map2;
+
+    @Value("#{T(com.vailter.standard.utils.MapUtils).decodeMap(${test.map1:}?:null)}")
+    private Map<String, String> map1;
+    @Value("#{T(com.vailter.standard.utils.MapUtils).decodeMap(${test.map2:}?:null)}")
+    private Map<String, String> map2;
+
+    @Test
+    void listOrMap() {
+        //System.out.println(stringList);
+        System.out.println(ArrayUtils.toString(strings));
+        System.out.println(map1);
+        System.out.println(map2);
     }
 }

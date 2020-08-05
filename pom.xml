@@ -12,6 +12,7 @@
         <module>standard-dynamic-datasource</module>
         <module>java8-learn</module>
         <module>standard-dataway</module>
+        <module>netty-study</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -165,6 +166,14 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>1.1.21</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>4.1.51.Final</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

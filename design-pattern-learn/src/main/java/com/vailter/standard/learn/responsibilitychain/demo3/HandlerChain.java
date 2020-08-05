@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HandlerChain {
-    private List<Handler> handlers = new ArrayList<>();
+    private final List<Handler> handlers = new ArrayList<>();
     private int index = 0;// 标记调用链位置
 
     public HandlerChain addHandler(Handler handler) {
