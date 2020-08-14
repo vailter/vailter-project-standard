@@ -1,4 +1,4 @@
-package com.vailter.standard.netty.nio;
+package com.vailter.standard.netty.nio.jdk;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
