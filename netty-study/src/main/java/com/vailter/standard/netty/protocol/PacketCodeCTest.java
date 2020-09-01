@@ -14,9 +14,8 @@ public class PacketCodeCTest {
         loginRequestPacket.setUsername("zhangsan");
         loginRequestPacket.setPassword("password");
 
-        PacketCodeC packetCodeC = new PacketCodeC();
-        ByteBuf byteBuf = packetCodeC.encode(loginRequestPacket);
-        Packet decodedPacket = packetCodeC.decode(byteBuf);
+        ByteBuf byteBuf = PacketCodeC.getInstance().encode(loginRequestPacket);
+        Packet decodedPacket = PacketCodeC.getInstance().decode(byteBuf);
 
         byte[] serialize = serializer.serialize(loginRequestPacket);
 

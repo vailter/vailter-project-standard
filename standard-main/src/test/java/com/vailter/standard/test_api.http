@@ -25,3 +25,5 @@ GET localhost:8080/users/testNonRet
 GET localhost:8080/users/testException
 
 ###
+
+GET {{base_url}}

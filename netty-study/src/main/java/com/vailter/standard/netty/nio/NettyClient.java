@@ -1,13 +1,21 @@
 package com.vailter.standard.netty.nio;
 
+import com.vailter.standard.netty.login.ClientHandler;
+import com.vailter.standard.netty.login.LoginUtil;
+import com.vailter.standard.netty.protocol.MessageRequestPacket;
+import com.vailter.standard.netty.protocol.PacketCodeC;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringEncoder;
 
 import java.util.Date;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class NettyClient {
@@ -17,13 +25,16 @@ public class NettyClient {
 
         bootstrap.group(group)
                 .channel(NioSocketChannel.class)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .option(ChannelOption.TCP_NODELAY, true)
                 .handler(new ChannelInitializer<Channel>() {
                     @Override
                     protected void initChannel(Channel ch) {
                         // ch.pipeline() 返回的是和这条连接相关的逻辑处理链
                         // addLast() 添加一个逻辑处理器，这个逻辑处理器为的就是在客户端建立连接成功之后，向服务端写数据
                         //ch.pipeline().addLast(new StringEncoder());
-                        ch.pipeline().addLast(new FirstClientHandler());
+                        ch.pipeline().addLast(new ClientHandler());
                     }
                 });
 
@@ -67,6 +78,9 @@ public class NettyClient {
         bootstrap.connect(host, port).addListener(future -> {
             if (future.isSuccess()) {
                 System.out.println("连接成功!");
+                Channel channel = ((ChannelFuture) future).channel();
+                // 连接成功之后，启动控制台线程
+                startConsoleThread(channel);
             } else if (retry == 0) {
                 System.err.println(new Date() + ": 重试次数已用完，放弃连接！");
             } else {
@@ -80,5 +94,22 @@ public class NettyClient {
                 bootstrap.config().group().schedule(() -> connect(bootstrap, host, port, retry - 1), delay, TimeUnit.SECONDS);
             }
         });
+    }
+
+    private static void startConsoleThread(Channel channel) {
+        new Thread(() -> {
+            while (!Thread.interrupted()) {
+                if (LoginUtil.hasLogin(channel)) {
+                    System.out.println("输入消息发送至服务端: ");
+                    Scanner sc = new Scanner(System.in);
+                    String line = sc.nextLine();
+
+                    MessageRequestPacket packet = new MessageRequestPacket();
+                    packet.setMessage(line);
+                    ByteBuf byteBuf = PacketCodeC.getInstance().encode(channel.alloc(), packet);
+                    channel.writeAndFlush(byteBuf);
+                }
+            }
+        }).start();
     }
 }

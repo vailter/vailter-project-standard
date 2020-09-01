@@ -20,6 +20,9 @@ public class PacketCodeC {
     static {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
+        packetTypeMap.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
+        packetTypeMap.put(Command.MSG_REQUEST, MessageRequestPacket.class);
+        packetTypeMap.put(Command.MSG_RESPONSE, MessageResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();
@@ -38,10 +41,14 @@ public class PacketCodeC {
      * @return
      */
     public ByteBuf encode(Packet packet) {
+        return encode(ByteBufAllocator.DEFAULT, packet);
+    }
+
+    public ByteBuf encode(ByteBufAllocator alloc, Packet packet) {
         // 1. 创建 ByteBuf 对象
-        ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
+        ByteBuf byteBuf = alloc.ioBuffer();
         // 2. 序列化 Java 对象
-        byte[] bytes = Serializer.DEFAULT.serialize(packet);
+        byte[] bytes = serialize(packet);
 
         // 3. 实际编码过程
         byteBuf.writeInt(MAGIC_NUMBER);
@@ -52,6 +59,10 @@ public class PacketCodeC {
         byteBuf.writeBytes(bytes);
 
         return byteBuf;
+    }
+
+    private byte[] serialize(Packet packet) {
+        return Serializer.DEFAULT.serialize(packet);
     }
 
     /**
@@ -103,4 +114,18 @@ public class PacketCodeC {
     private Class<? extends Packet> getRequestType(byte command) {
         return packetTypeMap.get(command);
     }
+
+    private PacketCodeC() {
+
+    }
+
+    public static PacketCodeC getInstance() {
+        return PacketCodeCHolder.INSTANCE;
+    }
+
+
+    private static class PacketCodeCHolder {
+        private static final PacketCodeC INSTANCE = new PacketCodeC();
+    }
+
 }
