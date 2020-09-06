@@ -1,7 +1,7 @@
 package com.vailter.standard;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
+//import com.alibaba.fastjson.JSONObject;
+//import com.alibaba.fastjson.TypeReference;
 import com.vailter.standard.utils.CustomResourceReader;
 import org.apache.commons.lang3.ArrayUtils;
 import org.assertj.core.api.Assertions;
