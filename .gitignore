@@ -31,3 +31,4 @@ build/
 .vscode/
 .mvn/wrapper/
 workspace
+/rule/src/main/resources/repo/
