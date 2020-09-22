@@ -1,6 +1,7 @@
 package com.vailter.standard.config;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,6 +44,8 @@ public class DateFormatConfig {
             builder.failOnEmptyBeans(false)
                     .failOnUnknownProperties(false)
                     .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                    // 将Long转换为String，前端最多展示17，超过会丢失精度
+                    .serializerByType(Long.class, ToStringSerializer.instance)
                     .dateFormat(df);
         };
     }
