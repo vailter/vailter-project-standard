@@ -27,3 +27,16 @@ GET localhost:8080/users/testException
 ###
 
 GET {{base_url}}
+
+###
+POST localhost:8080/page/nuggetsDetail
+Content-Type: application/json
+
+{
+  "pageNum": 1,
+  "pageSize": 10,
+  "param": {
+    "startDate": "2019-11-16 00:00:00",
+    "endDate": "2020-11-16 23:59:59"
+  }
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vailter.standard.page.dao.StatisticsDetailDao">
+    <select id="nuggetsDetail" resultType="com.vailter.standard.page.vo.ReportUseCreditDetailBean">
+        SELECT
+        a.create_time as statisticDate,
+        b.province_name provinceName,
+        b.city_name cityName,
+        b.region_name areaName,
+        c.real_name realName,
+        a.borrower_phone borrowerPhone,
+        a.opr_name oprName,
+        a.opr_code oprCode,
+        a.opr_phone oprPhone,
+        a.dep_code depCode,
+        a.dep_name depName,
+        case dep_model
+        when '001' then '自营厅'
+        when '002' then '社会厅'
+        when '003' then '商场'
+        when '004' then '超市'
+        when '005' then '物业'
+        when '006' then '其他'
+        ELSE
+        '未知'
+        end depModel,
+        a.drainage_order_no drainageOrderNo,
+        a.drainage_order_date drainageOrderDate,
+        a.drainage_package_code drainagePackageCode,
+        a.drainage_package_desp drainagePackageDesp,
+        a.goods_name goodsName,
+        a.loan_amt loanAmt,
+        a.loan_periods period,
+        a.package_finish_time packageFinishTime,
+        a.package_confirm_time packageConfirmTime,
+        if(a.debit=0,'华博小贷',if(a.debit=10,'南京银行',if(a.debit=20,'宁波银行',if(a.debit=30,'上海银行','未知')))) debit,
+        if(a.status=10,'待审核',if(a.status=9,'关闭',if(a.status=10,'审核中',if(a.status=20,'审核通过',if(a.status=21,'审核拒绝',
+        if(a.status=30,'办理完成',if(a.status=31,'客户放弃',if(a.status=40,'还款中',if(a.status=50,'退机中',if(a.status=51,'已退机',if(a.status=60,'提前结清','已完结')))))))))))
+        status
+        FROM
+        loan_device_apply a
+        LEFT JOIN hy_usr_credit_record c on a.usr_credit_rc_id = c.usr_credit_rc_id
+        LEFT JOIN hy_region_map_info b ON a.dep_prov_code = b.province_code AND a.dep_city_code = b.city_code AND
+        a.dep_region_code = b.region_code
+        where 1=1
+        <if test="startDate !=null and startDate != ''">
+            and a.create_time &gt;= #{startDate}
+        </if>
+        <if test="endDate !=null and endDate != ''">
+            and a.create_time &lt;= #{endDate}
+        </if>
+        <if test="provinceId !=null and provinceId != '' and provinceId != 0 and provinceId != 100000 and provinceId != 100001">
+            and b.province_code = #{provinceId}
+            <if test="cityId !=null and cityId != '' and cityId != 0 and cityId != 100000 and cityId != 100001">
+                and b.city_code = #{cityId}
+                <if test="regionCode !=null and regionCode != '' and regionCode != 0 and regionCode != 100000 and regionCode != 100001">
+                    and b.region_code = #{regionCode}
+                </if>
+            </if>
+        </if>
+        <if test="subProductType != null and subProductType != ''">
+            and a.sub_product_type = #{subProductType}
+        </if>
+        <if test="subProductType != null and subProductType != '' and subProductType == '101'">
+            and a.status in (20,30,40,50,60,70,51)
+        </if>
+        <if test="subProductType == null or subProductType == '' or subProductType != '101'">
+            and a.status in (30,40,50,60,70,51)
+        </if>
+        <if test="periods != null and periods != '' and periods !=0">
+            and a.loan_periods = #{periods}
+        </if>
+    </select>
+</mapper>

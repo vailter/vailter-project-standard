@@ -20,8 +20,8 @@ import java.lang.reflect.Method;
  *
  * @since 1.0.0
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class DataSourceAspect {
     protected Logger logger = LoggerFactory.getLogger(getClass());

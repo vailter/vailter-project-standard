@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" th:href="@{/plugins/bootstrap-3.3.7/css/bootstrap.min.css}">
+<!--<link rel="stylesheet" th:href="@{/plugins/bootstrap-3.3.7/css/bootstrap-theme.css}">-->
+<link rel="stylesheet" th:href="@{/plugins/bootstrap-table-1.13.1/bootstrap-table.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/layui/css/modules/laydate/default/laydate.css}">
+<link rel="stylesheet" th:href="@{/css/select2.min.css}">
+
+<script type="text/javascript" th:src="@{/js/jquery-3.5.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/bootstrap-3.3.7/js/bootstrap.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/plugins/layui/layui.js}"></script>
+
+<style>
+    .layui-elem-quote {
+        margin-bottom: 10px;
+        padding: 15px;
+        line-height: 22px;
+        border-left: 5px solid #009688;
+        border-radius: 0 2px 2px 0;
+        background-color: #f2f2f2;
+    }
+
+    #exampleTable td {
+        max-width: 58px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper">
+    <div class="wrapper-content">
+        <section class="content-header">
+            <!--            <h1>-->
+            <!--                客户管理<small>客户列表</small>-->
+            <!--            </h1>-->
+            <!--            <ol class="breadcrumb">-->
+            <!--                <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>-->
+            <!--                <li class="active">首页</li>-->
+            <!--            </ol>-->
+
+            <div class="col-sm-12">
+
+                <div class="ibox">
+
+                    <div class="ibox-body">
+
+                        <div class="fixed-table-toolbar ">
+                            <div class="panel panel-default layui-elem-quote">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label class="pull-left columns nopadding col-md-2 text-right">统计时间：</label>
+                                                <div class="pull-left columns nopadding col-md-3">
+                                                    <input type="text" class="form-control"
+                                                           id="startDate" name="startDate"
+                                                           value="" placeholder="请选择开始时间"
+                                                           style="background-color: #fff;" readonly="readonly">
+                                                </div>
+                                                <div class="pull-left columns nopadding col-md-1 text-center">—</div>
+                                                <div class="pull-left columns nopadding col-md-3">
+                                                    <input type="text" class="form-control"
+                                                           id="endDate" name="endDate"
+                                                           value="" placeholder="请选择结束时间"
+                                                           style="background-color: #fff;" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="row">
+                <div class="panel-body">
+                    <div id="toolbar" class="btn-group">
+                        <button type="button" class="btn btn-success" style="line-height: 21px;">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            查询
+                        </button>
+                    </div>
+                    <div class="box">
+                        <div class="box-body">
+                            <table id="exampleTable" class="table table-bordered table-striped table-sm text-nowrap"
+                                   data-mobile-responsive="true"
+                            ></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!--<div th:include="include :: footer"></div>-->
+<script type="text/javascript" th:src="@{/plugins/bootstrap-table-1.13.1/bootstrap-table.min.js}"></script>
+<!--<script type="text/javascript" th:src="@{/plugins/bootstrap-table-1.13.1/extensions/filter-control/bootstrap-table-filter-control.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/export/FileSaver.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/export/xlsx.core.min.js}"></script>-->
+<script type="text/javascript" th:src="@{/plugins/tableExport/tableExport.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/bootstrap-table-1.13.1/export/bootstrap-table-export.min.js}"></script>
+<!--<script type="text/javascript" th:src="@{/plugins/bootstrap-table-1.18.0/extensions/toolbar/bootstrap-table-toolbar.js}"></script>-->
+<script type="text/javascript" th:src="@{/js/moment.js}"></script>
+<script type="text/javascript" th:src="@{/js/select2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/appjs/page.js}"></script>
+<!--<script th:inline="javascript">-->
+<!--    let currentUser = [[${currentUser}]];-->
+<!--    let loginOperatorId = currentUser.userId;-->
+<!--</script>-->
+</body>
+</html>

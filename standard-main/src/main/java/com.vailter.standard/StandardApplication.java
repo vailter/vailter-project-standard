@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 @SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 //@EnableHasor()
 //@EnableHasorWeb()
-@MapperScan(basePackages = {"com.vailter.**.mapper"})
+@MapperScan(basePackages = {"com.vailter.**.mapper", "com.vailter.**.dao"})
 @EnableConfigurationProperties(ZengpinlinProperties.class)
 public class StandardApplication implements CommandLineRunner {
 

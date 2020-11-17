@@ -2,6 +2,7 @@ package com.vailter.standard.config;
 
 import com.vailter.standard.ret.CommonResult;
 import com.vailter.standard.ret.Result;
+import com.vailter.standard.ret.v2.PageUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -36,6 +37,10 @@ public class UnifiedReturnConfig {
                                       ServerHttpRequest serverHttpRequest,
                                       ServerHttpResponse serverHttpResponse) {
             if (body instanceof CommonResult || body instanceof Result) {
+                return body;
+            }
+
+            if (body instanceof PageUtils) {
                 return body;
             }
 //            if (mediaType.includes(MediaType.TEXT_HTML) || mediaType.includes(MediaType.TEXT_PLAIN)) {

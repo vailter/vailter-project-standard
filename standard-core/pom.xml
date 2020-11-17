@@ -21,5 +21,10 @@
             <groupId>com.vailter.standard</groupId>
             <artifactId>standard-dynamic-datasource</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.vailter.standard</groupId>
+            <artifactId>pager</artifactId>
+        </dependency>
     </dependencies>
 </project>
