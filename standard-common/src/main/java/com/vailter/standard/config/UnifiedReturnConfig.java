@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -43,9 +44,13 @@ public class UnifiedReturnConfig {
             if (body instanceof PageUtils) {
                 return body;
             }
-//            if (mediaType.includes(MediaType.TEXT_HTML) || mediaType.includes(MediaType.TEXT_PLAIN)) {
-//                return body;
-//            }
+
+            //if (aClass == StringHttpMessageConverter.class) {
+            //    return body;
+            //}
+            //if (mediaType.includes(MediaType.TEXT_HTML) || mediaType.includes(MediaType.TEXT_PLAIN)) {
+            //    return body;
+            //}
             return new CommonResult<>(body);
         }
     }

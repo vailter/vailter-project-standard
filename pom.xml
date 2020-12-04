@@ -200,6 +200,13 @@
                 <version>3.0.0-RC4</version>
             </dependency>
 
+            <!--aop-log: https://github.com/EalenXie/aop-log-->
+            <dependency>
+                <groupId>com.github.ealenxie</groupId>
+                <artifactId>aop-log</artifactId>
+                <version>2.2</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
