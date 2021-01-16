@@ -1,7 +1,7 @@
 package com.vailter.standard;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
-import com.vailter.standard.learn.responsibilitychain.pipelinewithspring.ApplicationService;
+import com.vailter.standard.learn.chain.pipelinewithspring.ApplicationService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
