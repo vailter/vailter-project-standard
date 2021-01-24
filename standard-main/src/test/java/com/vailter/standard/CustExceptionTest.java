@@ -15,9 +15,10 @@ public class CustExceptionTest {
 
     /**
      * 校验{@link UserVo}存在
+     *
      * @param userVo
      */
     private void checkNotNull(UserVo userVo) {
-        ResponseEnum.BAD_LICENCE_TYPE.assertNotNull(userVo,new Date());
+        ResponseEnum.BAD_LICENCE_TYPE.assertNotNull(userVo, new Date());
     }
 }
