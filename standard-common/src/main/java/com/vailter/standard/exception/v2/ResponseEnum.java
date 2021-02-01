@@ -14,7 +14,7 @@ public enum ResponseEnum implements BusinessExceptionAssert {
     /**
      * Licence not found
      */
-    LICENCE_NOT_FOUND(7002, "Licence not found.")
+    LICENCE_NOT_FOUND(7002, "Licence not found, {0}")
     ;
 
     /**

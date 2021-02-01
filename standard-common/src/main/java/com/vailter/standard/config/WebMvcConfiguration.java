@@ -1,5 +1,6 @@
 package com.vailter.standard.config;
 
+import com.vailter.standard.config.interceptors.AccessLimitInterceptor;
 import com.vailter.standard.config.interceptors.LoginRequiredInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         log.info("add interceptors");
         // 配置拦截器 LoginRequiredInterceptor
         registry.addInterceptor(new LoginRequiredInterceptor()).excludePathPatterns(Arrays.asList("/META-INF/resources/**", "/static/**"));
+        registry.addInterceptor(new AccessLimitInterceptor());
     }
 
     /**

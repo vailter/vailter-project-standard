@@ -1,10 +1,8 @@
 package com.vailter.standard;
 
-import com.vailter.standard.vo.UserVo;
 import com.vailter.standard.exception.v2.ResponseEnum;
+import com.vailter.standard.vo.UserVo;
 import org.junit.jupiter.api.Test;
-
-import java.util.Date;
 
 public class CustExceptionTest {
 
@@ -19,6 +17,7 @@ public class CustExceptionTest {
      * @param userVo
      */
     private void checkNotNull(UserVo userVo) {
-        ResponseEnum.BAD_LICENCE_TYPE.assertNotNull(userVo, new Date());
+//        ResponseEnum.BAD_LICENCE_TYPE.assertNotNull(userVo, new Date());
+        ResponseEnum.LICENCE_NOT_FOUND.assertNotNull(userVo, "1111", null);
     }
 }

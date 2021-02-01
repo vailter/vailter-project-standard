@@ -1,18 +1,32 @@
 package com.vailter.standard.config.redis;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.*;
 
 import javax.annotation.Resource;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Configuration
 @ConditionalOnClass(RedisOperations.class)
@@ -78,5 +92,56 @@ public class RedisTemplateConfig {
         StringRedisTemplate template = new StringRedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);
         return template;
+    }
+
+    @Bean("redisCacheManager")
+    @Primary
+    public CacheManager cacheManager(LettuceConnectionFactory lettuceConnectionFactory) {
+//        RedisSerializer<String> redisSerializer = new StringRedisSerializer();
+
+        //解决查询缓存转换异常的问题
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        final ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        jackson2JsonRedisSerializer.setObjectMapper(mapper);
+
+        // 配置1 ,
+        RedisCacheConfiguration config1 = RedisCacheConfiguration.defaultCacheConfig()
+                //缓存失效时间
+                .entryTtl(Duration.ofSeconds(30))
+                //key序列化方式
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new PrefixStringKeySerializer(redisKeyPrefixProperties)))
+                //value序列化方式
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
+                //不允许缓存null值
+                .disableCachingNullValues();
+        //配置2 ,
+        RedisCacheConfiguration config2 = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofMinutes(1000))
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new PrefixStringKeySerializer(redisKeyPrefixProperties)))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
+                .disableCachingNullValues();
+
+
+        //设置一个初始化的缓存空间set集合
+        Set<String> cacheNames = new HashSet<>();
+        cacheNames.add("my-redis-cache1");
+        cacheNames.add("my-redis-cache2");
+
+
+        //对每个缓存空间应用不同的配置
+        Map<String, RedisCacheConfiguration> configurationMap = new HashMap<>(3);
+        configurationMap.put("my-redis-cache1", config1);
+        configurationMap.put("my-redis-cache2", config2);
+
+        return RedisCacheManager.builder(lettuceConnectionFactory)
+                //默认缓存配置
+                .cacheDefaults(config1)
+                //初始化缓存空间
+                .initialCacheNames(cacheNames)
+                //初始化缓存配置
+                .withInitialCacheConfigurations(configurationMap).build();
     }
 }

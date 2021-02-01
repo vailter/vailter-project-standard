@@ -63,6 +63,7 @@ public class CodeMsg {
     public static final CodeMsg UNKNOWN_ERROR = new CodeMsg(10000, "未知错误");
     public static final CodeMsg PARAMS_NOT_COMPLETE = new CodeMsg(10001, "参数不全");
     public static final CodeMsg PARAMS_FORMAT_ERROR = new CodeMsg(10002, "参数格式不正确");
+    public static final CodeMsg ACCESS_LIMIT_REACHED = new CodeMsg(10003, "接口访问受限");;
     public static final CodeMsg IN_EXIST_CREDIT_APPLY = new CodeMsg(20013, "授信订单编号不存在该编号");
     public static final CodeMsg CREDIT_REPORT_CREATING = new CodeMsg(20014, "授信报告尚未生成");
 
