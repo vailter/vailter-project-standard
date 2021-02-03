@@ -30,9 +30,9 @@ public class UserController {
     }
 
     @GetMapping("/testResponseEntity")
-    public ResponseEntity getUserByAge() {
+    public ResponseEntity<UserVo> getUserByAge() {
         UserVo userVo = UserVo.builder().id(1L).name("日拱一兵").age(18).build();
-        return new ResponseEntity(userVo, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(userVo, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/testNonRet")

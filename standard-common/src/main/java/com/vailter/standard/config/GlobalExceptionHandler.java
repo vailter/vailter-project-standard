@@ -27,7 +27,7 @@ import java.util.Set;
  *
  * @author Vailter67
  */
-@RestControllerAdvice
+//@RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
 

@@ -64,10 +64,10 @@
 <!--            <artifactId>standard-dataway</artifactId>-->
 <!--        </dependency>-->
 
-        <dependency>
-            <groupId>com.vailter.standard</groupId>
-            <artifactId>rule</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.vailter.standard</groupId>-->
+<!--            <artifactId>rule</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>javax.annotation</groupId>

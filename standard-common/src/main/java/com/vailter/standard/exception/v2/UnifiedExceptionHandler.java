@@ -1,5 +1,7 @@
 package com.vailter.standard.exception.v2;
 
+import com.vailter.standard.exception.AppException;
+import com.vailter.standard.ret.Result;
 import com.vailter.standard.ret.v2.CommonResponseEnum;
 import com.vailter.standard.ret.v2.ErrorResponse;
 import com.vailter.standard.ret.v2.ServletResponseEnum;
@@ -39,10 +41,8 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  * 未知异常: handleException
  */
 @Slf4j
-@Component
 @RestControllerAdvice
 @ConditionalOnWebApplication
-@ConditionalOnMissingBean(UnifiedExceptionHandler.class)
 public class UnifiedExceptionHandler {
     /**
      * 生产环境
@@ -87,6 +87,11 @@ public class UnifiedExceptionHandler {
         log.error(e.getMessage(), e);
 
         return new ErrorResponse(e.getResponseEnum().getCode(), e.getMessage());
+    }
+
+    @ExceptionHandler(AppException.class)
+    public Result<Void> handleDataDisposeException(AppException ex) {
+        return Result.error(ex.getCm());
     }
 
     /**
